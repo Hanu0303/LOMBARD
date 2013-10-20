@@ -55,7 +55,7 @@
 	}
 	
     function CreateDB(tx) {
-        tx.executeSql('CREATE TABLE IF NOT EXISTS KODE_EasyForm (id INTEGER PRIMARY KEY AUTOINCREMENT, Name TEXT NOT NULL, Club TEXT NOT NULL, Image TEXT NULL)');
+        tx.executeSql('CREATE TABLE IF NOT EXISTS KODE_EasyForm (id INTEGER PRIMARY KEY AUTOINCREMENT, Name TEXT NOT NULL, Club TEXT NOT NULL, Image TEXT NULL, Sync_flag TEXT NULL)');
     }
     function errorCB(err) {
         alert("Error processing SQL: "+err.code);
@@ -73,7 +73,7 @@
 		$("#SoccerPlayerList").html('');
 		for (var i=0; i<len; i++){
 			var row= result.rows.item(i);
-			htmlData = '<div class="del_form" onClick="DeleteForm('+row['id']+')">Del</div><div form_id="'+row['id']+'" class="view_form" onclick="view_form('+row['id']+')" style="cursor:pointer;"><h3 class="ui-li-heading">'+row['Name']+'</h3><p class="ui-li-desc">Club: '+row['Club']+'</p></div>';
+			htmlData = '<div class="del_form" onClick="DeleteForm('+row['id']+')">Del</div><div class="synced '+row['Sync_flag']+'">Sent</div><div form_id="'+row['id']+'" class="view_form" onclick="view_form('+row['id']+')" style="cursor:pointer;"><h3 class="ui-li-heading">'+row['Name']+'</h3><p class="ui-li-desc">Club: '+row['Club']+'</p></div>';
 			$("#SoccerPlayerList").append(htmlData);
 		}
 		if (len==0) {
@@ -95,6 +95,10 @@
 	function delrecord(tx){
 		tx.executeSql('DELETE FROM KODE_EasyForm WHERE id='+current_form_id);
 	}
+	function Sync_flag(tx){
+		tx.executeSql('UPDATE KODE_EasyForm set Sync_flag="Yes" WHERE id='+current_form_id);
+	}
+	
 	function successfully_added_form() {
 		db.transaction(queryDB,errorCB);
 		alert('Saved');
@@ -110,6 +114,9 @@
 	function successfully_del_form() {
 		db.transaction(queryDB,errorCB);
 	}	
+	function successfully_synced_form(){
+	
+	}
     function fields_to_form(tx,result){
 		//$.mobile.showPageLoadingMsg(true);
         var len = result.rows.length;
@@ -170,13 +177,11 @@
 		navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 20, allowEdit: true,
 		destinationType: destinationType.DATA_URL });
 	}
-
 	function getPhoto(source) {
 		navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 50, 
 		destinationType: destinationType.FILE_URI,
 		sourceType: source });
 	}
-
 	function onFail(message) {
 		alert('Failed because: ' + message);
 	}
@@ -201,10 +206,11 @@
 			var ft = new FileTransfer();
 			ft.upload( mediaFile, "http://kodeltd.co.nz/upload_file.php?id="+current_form_id,
 				function(result) {
-					alert('Done uploading'); 
 					$('#load_form_save_box').css('display','block');
 					$('#add_form_cancel_box').css('display','block');
 					$('#file_uploader').css('display','none');
+					db.transaction(Sync_flag, errorCB,successfully_synced_form);
+					alert('Done uploading'); 
 				});
 		} 
 	}

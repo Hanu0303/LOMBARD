@@ -2,3 +2,5 @@ ul { padding:0; margin:0; }
 .ui-header { background:#000;}
 .view_form { border-radius:7px; background:#ccc; padding:4px; margin-bottom:10px;}
 .del_form { float:right; margin:10px; background:#fff; border-radius:7px; padding:4px; cursor:pointer; }
+.synced { display:none; float:right;margin:10px 10px 0 0; font-size:0.7em;}
+.synced.Yes { display:block;}
