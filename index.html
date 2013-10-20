@@ -28,10 +28,9 @@
 		<div>Name<input type="text" value="" id="new_name" /></div>
 		<div>Club<input type="text" value="" id="new_club" /></div>
 
-		<div id="load_form_save_box"><button id="load_form_save">SAVE</button></div>
+		<div id="load_form_save_box"><button id="load_form_save">SAVE</button><button id="sync_to_server">SYNC TO SERVER</button></div>
 		<div id="add_form_save_box"><button id="add_form_save">ADD</button></div>
 		<div id="add_form_cancel_box"><button id="add_form_cancel">CANCEL</button></div>
-		<div id="sync_to_server_box"><button id="sync_to_server">SYNC TO SERVER</button></div>
 		
 	</div>
   </div>
@@ -183,7 +182,6 @@
 	function sync_with_server() {
 		$('#load_form_save_box').css('display','none');
 		$('#add_form_cancel_box').css('display','none');
-		$('#sync_to_server_box').css('display','none');
 		uploadFile($('#largeImage').attr('src'));
 	}
 		
@@ -204,7 +202,6 @@
 					alert('Done uploading'); 
 					$('#load_form_save_box').css('display','block');
 					$('#add_form_cancel_box').css('display','block');
-					$('#sync_to_server_box').css('display','block');
 				});
 		} 
 	}
