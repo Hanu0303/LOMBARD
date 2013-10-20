@@ -31,6 +31,7 @@
 		<div id="load_form_save_box"><button id="load_form_save">SAVE</button><button id="sync_to_server">SYNC TO SERVER</button></div>
 		<div id="add_form_save_box"><button id="add_form_save">ADD</button></div>
 		<div id="add_form_cancel_box"><button id="add_form_cancel">CANCEL</button></div>
+		<div id="file_uploader" style="display:none;"><img src="images/loading-bar.gif" /></div>
 		
 	</div>
   </div>
@@ -193,6 +194,7 @@
 	function uploadFile(mediaFile) {
 		if (mediaFile!='') {
 			alert('Started uploading');
+			$('#file_uploader').css('display','block');
 			//path = mediaFile.fullPath;
 			//name = mediaFile.name;
 			
@@ -202,6 +204,7 @@
 					alert('Done uploading'); 
 					$('#load_form_save_box').css('display','block');
 					$('#add_form_cancel_box').css('display','block');
+					$('#file_uploader').css('display','none');
 				});
 		} 
 	}
