@@ -28,7 +28,7 @@
 		<div>Name<input type="text" value="" id="new_name" /></div>
 		<div>Club<input type="text" value="" id="new_club" /></div>
 
-		<div id="load_form_save_box"><button id="load_form_save">SAVE</button><button id="sync_to_server">SYNC TO SERVER</button></div>
+		<div id="load_form_save_box"><button id="load_form_save">SAVE</button><div id="sync_to_server_box"><button id="sync_to_server">SYNC TO SERVER</button></div></div>
 		<div id="add_form_save_box"><button id="add_form_save">ADD</button></div>
 		<div id="add_form_cancel_box"><button id="add_form_cancel">CANCEL</button></div>
 		<center id="file_uploader" style="display:none;"><img src="images/loading-bar.gif" width="90%" /></center>
@@ -227,9 +227,9 @@
         states[Connection.CELL_2G]  = 'Cell 2G connection';
         states[Connection.CELL_3G]  = 'Cell 3G connection';
         states[Connection.CELL_4G]  = 'Cell 4G connection';
-        states[Connection.NONE]     = 'No network connection';
+        states[Connection.NONE]     = 'No_network_connection';
 
-        alert('Connection type: ' + states[networkState]);
+        return states[networkState];
     }
 
 
@@ -255,7 +255,8 @@
 		//buttons
 		$('#load_form_save_box').css('display','block');
 		$('#add_form_save_box').css('display','none');
-		checkConnection();
+		$('#sync_to_server_box').removeAttr('class');
+		$('#sync_to_server_box').addClass(checkConnection());
 		current_form_id = current_form_id_local;
 		GetThisForm();
 	}
