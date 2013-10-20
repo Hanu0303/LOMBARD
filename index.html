@@ -72,7 +72,7 @@
 		$("#SoccerPlayerList").html('');
 		for (var i=0; i<len; i++){
 			var row= result.rows.item(i);
-			htmlData = '<div form_id="'+row['id']+'" class="view_form" onclick="view_form('+row['id']+')" style="cursor:pointer;"><h3 class="ui-li-heading">'+row['Name']+'</h3><p class="ui-li-desc">Club: '+row['Club']+'</p></div>';
+			htmlData = '<div form_id="'+row['id']+'" class="view_form" onclick="view_form('+row['id']+')" style="cursor:pointer;"><div class="del_form" onClick="DeleteForm('+row['id']+')">Del</div><h3 class="ui-li-heading">'+row['Name']+'</h3><p class="ui-li-desc">Club: '+row['Club']+'</p></div>';
 			$("#SoccerPlayerList").append(htmlData);
 		}
 		if (len==0) {
@@ -91,6 +91,9 @@
 	function saverecord(tx){
 		tx.executeSql('UPDATE KODE_EasyForm set Name = "'+$('#new_name').val()+'", Club = "'+$('#new_club').val()+'", Image = "'+$('#largeImage').attr('src')+'" WHERE id='+current_form_id);
 	}
+	function delrecord(tx){
+		tx.executeSql('DELETE FROM KODE_EasyForm WHERE id='+current_form_id);
+	}
 	function successfully_added_form() {
 		db.transaction(queryDB,errorCB);
 		alert('Saved');
@@ -103,6 +106,9 @@
 		$('#form_list_box').css('display','block');
 		$('#form_new_box').css('display','none');
 	}
+	function successfully_del_form() {
+		db.transaction(queryDB,errorCB);
+	}	
     function fields_to_form(tx,result){
 		//$.mobile.showPageLoadingMsg(true);
         var len = result.rows.length;
@@ -146,7 +152,13 @@
 	$('#load_form_save').click(function(){
 		db.transaction(saverecord, errorCB,successfully_saved_form);
 	});
-	
+	function DeleteForm() {
+		if (confirm('Are you sure you want to save this thing into the database?')) {
+			db.transaction(delrecord, errorCB,successfully_del_form);
+		} else {
+			// Do nothing!
+		}
+	}
 	//GALLERY stuff-----------------------------------
 
 	function onPhotoURISuccess(imageURI) 
