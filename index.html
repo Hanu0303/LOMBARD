@@ -14,14 +14,16 @@
 
 <div data-role="page">
   <div data-role="header" data-position="fixed" data-theme="b">
-    <h1><img src="images/lombard_icon.png"></h1>
+    <h1><img src="images/lombard_icon.png" width="50%"></h1>
   </div>
   <div data-role="content">
 	<div id="form_list_box">
-		<ul id="SoccerPlayerList"></ul>
+		<h2>Forms you have added:</h2>
+		<div id="SoccerPlayerList"></div>
 		<input type="button" id="add_form" value="ADD FORM" /> 
 	</div>
 	<div id="form_new_box" style="display:none">
+		<h2>Demo form</h2>
 		<button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">ADD PHOTO</button>
 		<img id="largeImage" width="100" src="" />
 		<div>Name<input type="text" value="" id="new_name" /></div>
@@ -72,6 +74,9 @@
 			var row= result.rows.item(i);
 			htmlData = '<div><button form_id="'+row['id']+'" class="view_form" onclick="view_form('+row['id']+')" style="cursor:pointer;"><h3 class="ui-li-heading">'+row['Name']+'</h3><p class="ui-li-desc">Club: '+row['Club']+'</p><p class="ui-li-desc">Image: '+row['Image']+'</p></button></div>';
 			$("#SoccerPlayerList").append(htmlData);
+		}
+		if (len==0) {
+			$('#SoccerPlayerList').html('<p>No forms saved</p>');
 		}
     }
     function GetThisForm() {
