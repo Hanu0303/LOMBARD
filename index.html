@@ -14,7 +14,7 @@
 
 <div data-role="page">
   <div data-role="header" data-position="fixed" data-theme="b">
-    <h1><img src="images/lombard_icon.png" width="50%"></h1>
+    <h1><img src="images/lombard_icon.png" width="60%"></h1>
   </div>
   <div data-role="content">
 	<div id="form_list_box">
@@ -72,7 +72,7 @@
 		$("#SoccerPlayerList").html('');
 		for (var i=0; i<len; i++){
 			var row= result.rows.item(i);
-			htmlData = '<div form_id="'+row['id']+'" class="view_form" onclick="view_form('+row['id']+')" style="cursor:pointer;"><h3 class="ui-li-heading">'+row['Name']+'</h3><p class="ui-li-desc">Club: '+row['Club']+'</p><p class="ui-li-desc">Image: '+row['Image']+'</p></div>';
+			htmlData = '<div form_id="'+row['id']+'" class="view_form" onclick="view_form('+row['id']+')" style="cursor:pointer;"><h3 class="ui-li-heading">'+row['Name']+'</h3><p class="ui-li-desc">Club: '+row['Club']+'</p></div>';
 			$("#SoccerPlayerList").append(htmlData);
 		}
 		if (len==0) {
