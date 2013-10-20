@@ -31,7 +31,7 @@
 		<div id="load_form_save_box"><button id="load_form_save">SAVE</button></div>
 		<div id="add_form_save_box"><button id="add_form_save">ADD</button></div>
 		<div id="add_form_cancel_box"><button id="add_form_cancel">CANCEL</button></div>
-		<div id="add_form_cancel_box1"><button id="upload_photo">UPLOAD</button></div>
+		<div id="sync_to_server_box"><button id="sync_to_server">SYNC TO SERVER</button></div>
 		
 	</div>
   </div>
@@ -180,35 +180,34 @@
 	function onFail(message) {
 		alert('Failed because: ' + message);
 	}
-
+	function sync_with_server() {
+		$('#load_form_save_box').css('display','none');
+		$('#add_form_cancel_box').css('display','none');
+		$('#sync_to_server_box').css('display','none');
+		uploadFile($('#largeImage').attr('src'));
+	}
+		
 	
 	
 	
 	
-	//Camera Section
-
-
 	// Upload files to server
 	function uploadFile(mediaFile) {
-		alert('Started uploading');
-		//path = mediaFile.fullPath;
-		//name = mediaFile.name;
-		
-		var ft = new FileTransfer();
-		ft.upload( mediaFile, "http://kodeltd.co.nz/upload_file.php",
-			function(result) {
-				alert('Done uploading');           
-			});
-		
+		if (mediaFile!='') {
+			alert('Started uploading');
+			//path = mediaFile.fullPath;
+			//name = mediaFile.name;
+			
+			var ft = new FileTransfer();
+			ft.upload( mediaFile, "http://kodeltd.co.nz/upload_file.php?id="+current_form_id,
+				function(result) {
+					alert('Done uploading'); 
+					$('#load_form_save_box').css('display','block');
+					$('#add_form_cancel_box').css('display','block');
+					$('#sync_to_server_box').css('display','block');
+				});
+		} 
 	}
-	
-	
-	
-	
-	
-	
-	
-	
 	
 
 
@@ -253,8 +252,8 @@
 			// Do nothing!
 		}
 	}
-	$('#upload_photo').click(function(){
-		uploadFile($('#largeImage').attr('src'));
+	$('#sync_to_server').click(function(){
+		sync_with_server();
 	});
 	
 </script>
