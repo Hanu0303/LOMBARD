@@ -190,15 +190,14 @@
 
 	// Upload files to server
 	function uploadFile(mediaFile) {
-		alert('start');
+		alert('Started uploading');
 		//path = mediaFile.fullPath;
 		//name = mediaFile.name;
-		
 		
 		var ft = new FileTransfer();
 		ft.upload( mediaFile, "http://kodeltd.co.nz/upload_file.php",
 			function(result) {
-				alert('end');           
+				alert('Done uploading');           
 			});
 		
 	}
