@@ -72,7 +72,7 @@
 		$("#SoccerPlayerList").html('');
 		for (var i=0; i<len; i++){
 			var row= result.rows.item(i);
-			htmlData = '<div form_id="'+row['id']+'" class="view_form" onclick="view_form('+row['id']+')" style="cursor:pointer;"><div class="del_form" onClick="DeleteForm('+row['id']+')">Del</div><h3 class="ui-li-heading">'+row['Name']+'</h3><p class="ui-li-desc">Club: '+row['Club']+'</p></div>';
+			htmlData = '<div class="del_form" onClick="DeleteForm('+row['id']+')">Del</div><div form_id="'+row['id']+'" class="view_form" onclick="view_form('+row['id']+')" style="cursor:pointer;"><h3 class="ui-li-heading">'+row['Name']+'</h3><p class="ui-li-desc">Club: '+row['Club']+'</p></div>';
 			$("#SoccerPlayerList").append(htmlData);
 		}
 		if (len==0) {
@@ -152,8 +152,9 @@
 	$('#load_form_save').click(function(){
 		db.transaction(saverecord, errorCB,successfully_saved_form);
 	});
-	function DeleteForm() {
+	function DeleteForm(current_form_id_local) {
 		if (confirm('Are you sure you want to save this thing into the database?')) {
+			current_form_id = current_form_id_local;
 			db.transaction(delrecord, errorCB,successfully_del_form);
 		} else {
 			// Do nothing!
