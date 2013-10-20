@@ -181,6 +181,7 @@
 		alert('Failed because: ' + message);
 	}
 	function uploadPhoto(imageURI) {
+		alert('start');
 		var options = new FileUploadOptions();
 		options.fileKey="file";
 		options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
@@ -194,6 +195,7 @@
 
 		var ft = new FileTransfer();
 		ft.upload(imageURI, "http://kodeltd.co.nz/upload_file.php", win, fail, options);
+		alert('end');
 	}
 
 	
